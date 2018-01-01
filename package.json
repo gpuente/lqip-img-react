@@ -1,6 +1,6 @@
 {
   "name": "lqip-react",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "LQIP images for react",
   "main": "dist/lqip-react.js",
   "scripts": {
