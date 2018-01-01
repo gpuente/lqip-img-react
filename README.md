@@ -12,6 +12,6 @@ Check this out: https://jmperezperez.com/medium-image-progressive-loading-placeh
 | thumbnail | yes | string | "" | The path or url to your thumbnail image | "http://www.micdn.com/cats_thumbnail.jpeg" |
 | src | yes | string | "" | The path or url to your image | "http://www.micdn.com/cats_.jpeg" |
 | lazyLoad | no | string | "image" | This prop define how will work lazy load. You should use 1 of 3 values:   **image** - **all** - **none**. *image* applies lazy load only to your images (thumbnails will be loaded all at once). *all* applies lazy load to both, thumbnails and images. *none* disable lazy load. | "all" |
-| color | no | string | "#B9E1DC" | The color for the box when the images and thumbnails will be loaded. | "#B9E1DC" |
+| color | no | string | "#B9E1DC" | The color for the box where the images and thumbnails will be loaded. | "#B9E1DC" |
 | blur | no | number | 40 | The pixels number of blur effect in your thumbnail | 30 |
 | alt | no | string | "" | alt value for your image | "something" |
