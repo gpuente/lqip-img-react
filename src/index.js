@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uuidv4 from 'uuid/v4';
 
-import { isVisible } from './helpers';
+import ViewPortIntersectionObserver from './ViewPortIntersectionObserver';
 import { box, thumbnail, image } from './styles';
 
 class Img extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: uuidv4(),
       startLoad: false,
       thumbnail: {
         loaded: false,
@@ -20,6 +22,7 @@ class Img extends Component {
 
   componentDidMount() {
     const { imgContainer } = this;
+    const { id } = this.state;
     const { lazyLoad } = this.props;
 
     if (lazyLoad === 'none') {
@@ -27,13 +30,19 @@ class Img extends Component {
       return;
     }
 
+    if (!Img.viewPortIO) {
+      Img.viewPortIO = new ViewPortIntersectionObserver();
+    }
+
     const self = this;
 
-    window.addEventListener('scroll', function checkVisible() { // eslint-disable-line
-      if (isVisible(imgContainer)) {
+    Img.viewPortIO.subscribe({
+      id,
+      fn: () => {
         self.setState({ startLoad: true });
-        window.removeEventListener('scroll', checkVisible); // eslint-disable-line
-      }
+        Img.viewPortIO.unsubscribe(id, imgContainer);
+      },
+      element: imgContainer,
     });
   }
 
@@ -111,7 +120,11 @@ class Img extends Component {
     const style = box(aspectRatio, color);
 
     return (
-      <div style={style} ref={(imgContainer) => { this.imgContainer = imgContainer; }}>
+      <div
+        style={style}
+        ref={(imgContainer) => { this.imgContainer = imgContainer; }}
+        data-id={this.state.id}
+      >
         { this.renderThumbnail() }
         { this.renderImage() }
       </div>
