@@ -2,6 +2,8 @@
 
 Low Quality Image Placeholder for React is a component that allows you Lazy Load images using Medium load image effects
 
+[Demo](http://lqip-react.surge.sh)
+
 Check this out: https://jmperezperez.com/medium-image-progressive-loading-placeholder/
 
 ### Component Props ###
