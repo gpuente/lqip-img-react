@@ -99,7 +99,7 @@ class Img extends Component {
 
     const { loaded: thumbLoaded } = this.state.thumbnail;
 
-    if (!thumbLoaded && lazyLoad) return;
+    if (!thumbLoaded) return;
 
     const { src, alt } = this.props;
     const { loaded } = this.state.image;
