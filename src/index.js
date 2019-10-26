@@ -15,9 +15,11 @@ class Img extends Component {
         loaded: false,
       },
       image: {
-        laoded: false,
+        loaded: false,
       },
     };
+
+    this.thumbnailRef = React.createRef();
   }
 
   componentDidMount() {
@@ -25,6 +27,9 @@ class Img extends Component {
     const { id } = this.state;
     const { lazyLoad } = this.props;
 
+    if (this.thumbnailRef.current && this.thumbnailRef.current.complete) {
+      this.onLoadThumbnail();
+    }
     if (lazyLoad === 'none') {
       this.setState({ startLoad: true }); // eslint-disable-line
       return;
@@ -48,7 +53,6 @@ class Img extends Component {
 
   onLoadThumbnail = () => {
     const { thumbnail: thumbState } = this.state;
-
     this.setState({
       thumbnail: {
         ...thumbState,
@@ -71,7 +75,6 @@ class Img extends Component {
   renderThumbnail = () => {
     const { thumbnail: src, blur, alt, lazyLoad } = this.props;
     const { startLoad } = this.state;
-
     if (lazyLoad === 'all' && !startLoad) return;
 
     const { loaded } = this.state.thumbnail;
@@ -81,8 +84,9 @@ class Img extends Component {
       <img
         src={src}
         style={style}
-        onLoad={this.onLoadThumbnail}
         alt={alt}
+        onLoad={this.onLoadThumbnail}
+        ref={this.thumbnailRef}
       />
     );
   }
@@ -105,8 +109,8 @@ class Img extends Component {
       <img
         src={src}
         style={style}
-        onLoad={this.onLoadImage}
         alt={alt}
+        onLoad={this.onLoadImage}
       />
     );
   }
